@@ -1,0 +1,188 @@
+/* Pulse website: the parts studio.css doesn't have. Load after studio.css (the shared Overlap/Pulse system; never
+   edit the copy here, fix /mobileapps/web-studio/studio.css and copy it again). Flat colours and hairlines only,
+   as in the studio README rules. Mood and category colours are the app's src/moodColors.json and
+   src/categoryColors.json; in dark mode the soft fills are mixed with the page and the deep text is lightened. */
+
+:root {
+  --accent-light: #1b4ed8; --accent-dark: #6b93f6;
+  --on-accent-light: #fff; --on-accent-dark: #0a0a0a;
+
+  --great: #3DBE8B; --great-soft: #D6F3E6; --great-deep: #0F6B47;
+  --good: #3DB4EE; --good-soft: #D9F0FC; --good-deep: #0B6A99;
+  --okay: #F4B740; --okay-soft: #FCEFD2; --okay-deep: #8A5A00;
+  --low: #8088F2; --low-soft: #E3E5FD; --low-deep: #3D45B8;
+  --rough: #F7845A; --rough-soft: #FDE3D8; --rough-deep: #A3401B;
+  --personal: #8B7CF6; --personal-soft: #ECE9FE; --personal-deep: #4A3BB0;
+  --work: #5B9EF4; --work-soft: #E3EFFE; --work-deep: #1D5AA8;
+  --travel: #3DBE8B; --travel-soft: #D6F3E6; --travel-deep: #0F6B47;
+  --ideas: #F4B740; --ideas-soft: #FCEFD2; --ideas-deep: #8A5A00;
+  --health: #F7845A; --health-soft: #FDE3D8; --health-deep: #A3401B;
+  --other: #9AA1AE; --other-soft: #E8EAEE; --other-deep: #4B5260;
+  --track: var(--surface-3);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --great-soft: color-mix(in srgb, var(--great) 18%, var(--bg)); --great-deep: color-mix(in srgb, var(--great) 75%, #fff);
+    --good-soft: color-mix(in srgb, var(--good) 18%, var(--bg)); --good-deep: color-mix(in srgb, var(--good) 75%, #fff);
+    --okay-soft: color-mix(in srgb, var(--okay) 18%, var(--bg)); --okay-deep: color-mix(in srgb, var(--okay) 75%, #fff);
+    --low-soft: color-mix(in srgb, var(--low) 20%, var(--bg)); --low-deep: color-mix(in srgb, var(--low) 70%, #fff);
+    --rough-soft: color-mix(in srgb, var(--rough) 18%, var(--bg)); --rough-deep: color-mix(in srgb, var(--rough) 75%, #fff);
+    --personal-soft: color-mix(in srgb, var(--personal) 20%, var(--bg)); --personal-deep: color-mix(in srgb, var(--personal) 70%, #fff);
+    --work-soft: color-mix(in srgb, var(--work) 18%, var(--bg)); --work-deep: color-mix(in srgb, var(--work) 75%, #fff);
+    --travel-soft: color-mix(in srgb, var(--travel) 18%, var(--bg)); --travel-deep: color-mix(in srgb, var(--travel) 75%, #fff);
+    --ideas-soft: color-mix(in srgb, var(--ideas) 18%, var(--bg)); --ideas-deep: color-mix(in srgb, var(--ideas) 75%, #fff);
+    --health-soft: color-mix(in srgb, var(--health) 18%, var(--bg)); --health-deep: color-mix(in srgb, var(--health) 75%, #fff);
+    --other-soft: color-mix(in srgb, var(--other) 18%, var(--bg)); --other-deep: color-mix(in srgb, var(--other) 75%, #fff);
+  }
+}
+
+/* Six nav links don't fit beside the brand and button on small tablets: keep the phone menu until 1000px. */
+@media (min-width: 768px) and (max-width: 999px) {
+  .navlinks, .navright .divider { display: none; }
+  .menu { display: block; }
+}
+@media (min-width: 1000px) and (max-width: 1119px) { .navlinks a svg { display: none; } }
+
+.section-head p.sub { text-wrap: pretty; }
+.chip .i { width: 13px; height: 13px; }
+
+/* ---- Hero visual: the journal timeline in a hairline "stage" ---------------------------------------- */
+.stage {
+  max-width: 46rem; margin-top: 56px; text-align: left;
+  border: 1px solid var(--line); border-radius: var(--radius-2xl); background: var(--surface);
+}
+.stage-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px;
+  border-bottom: 1px solid var(--line-soft); font-size: 12px; font-weight: 500; color: var(--muted-fg);
+}
+.stage-bar > span { display: inline-flex; align-items: center; gap: 8px; }
+.stage-bar > span:first-child { color: var(--fg); font-weight: 700; letter-spacing: -0.025em; }
+.stage-bar .live i { width: 6px; height: 6px; border-radius: 50%; background: var(--great); }
+
+.timeline { position: relative; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; padding: 20px; }
+.timeline::before { content: ""; position: absolute; left: 51px; top: 112px; bottom: 20px; width: 1px; background: var(--line-strong); }
+.badge {
+  position: relative; align-self: start; height: 76px; display: grid; place-content: center; text-align: center; line-height: 1.1;
+  border-radius: var(--radius-xl); border: 1px solid var(--line-strong); background: var(--card);
+}
+.badge small { font-size: 10px; font-weight: 700; letter-spacing: .08em; color: var(--muted-fg); }
+.badge b { display: block; margin: 3px 0; font-size: 24px; font-weight: 400; letter-spacing: -1px; }
+.badge span { font-size: 10px; letter-spacing: .05em; color: var(--muted-fg); }
+.badge.today { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.badge.today small, .badge.today span { color: var(--accent); }
+
+.entry { min-width: 0; padding: 18px 18px 14px; border-radius: var(--radius-2xl); border: 1px solid var(--line); background: var(--card); }
+.entry h3 { min-height: 1.4em; margin-bottom: 4px; font-size: 18px; line-height: 1.4; font-weight: var(--w-strong); letter-spacing: -0.025em; }
+.entry p { min-height: 4.8em; font-size: 15px; line-height: 1.6; color: var(--muted-fg); }
+.entry.small p { min-height: 0; }
+.entry .caret { display: inline-block; width: 2px; height: 1.1em; margin-left: 1px; vertical-align: -3px; background: var(--accent); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.entry .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0 12px; }
+.entry .photos.one { grid-template-columns: 1fr; }
+.entry .photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius-xl); background: var(--surface-2); }
+.entry .photos.one img { aspect-ratio: 16 / 7; }
+.felt { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: var(--muted-fg); }
+.felt .chip { color: var(--fg); font-size: 13px; }
+.entry .foot {
+  display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 12px;
+  border-top: 1px dashed var(--line-strong); font-size: 13px; color: var(--muted-fg);
+}
+.entry .cat { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; }
+.entry .cat .i { width: 16px; height: 16px; }
+
+/* ---- Check in: mood faces, the week's dots, the Insights sentence and two stat cards ------------------ */
+.checkin { display: grid; gap: 12px; align-items: start; }
+@media (min-width: 900px) { .checkin { grid-template-columns: 1fr 1fr; } }
+.panel { padding: 20px; border-radius: var(--radius-2xl); border: 1px solid var(--line); background: var(--surface); }
+.panel h3 { margin-bottom: 18px; font-size: 15px; line-height: 1.4; font-weight: var(--w-strong); letter-spacing: -0.025em; }
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center; font-size: 12px; font-weight: 700; color: var(--muted-fg); }
+.week .d { display: grid; justify-items: center; gap: 8px; }
+.week .d i { width: 14px; height: 14px; border-radius: 50%; background: var(--track); transition: background-color .2s; }
+.week .d.today { color: var(--accent); }
+.faces, .facelabels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.faces { margin-top: 28px; }
+.face {
+  display: grid; place-items: center; aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  transition: transform .15s;
+}
+.face .i { width: 46%; height: 46%; }
+.face:hover { transform: scale(1.05); }
+.face.on { outline: 2px solid currentColor; outline-offset: 3px; }
+.facelabels { margin-top: 10px; text-align: center; font-size: 12px; font-weight: 500; color: var(--muted-fg); }
+.sentence { font-size: 22px; line-height: 1.8; letter-spacing: -0.5px; text-wrap: pretty; }
+.sentence .w {
+  display: inline-flex; align-items: center; gap: 6px; padding: 0 6px; border-radius: 8px; font-weight: 500;
+  text-decoration: underline wavy; text-decoration-thickness: 1.5px; text-underline-offset: 6px;
+}
+.sentence .w .i { width: 18px; height: 18px; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
+.stat { padding: 14px; border-radius: var(--radius-xl); border: 1px solid var(--line); background: var(--bg); }
+.stat .top { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; color: var(--muted-fg); }
+.stat .top .icon { width: 30px; height: 30px; border-radius: 9px; }
+.stat .top .icon svg { width: 16px; height: 16px; }
+.stat .n { margin: 12px 0 10px; font-size: 36px; line-height: 1; font-weight: 400; letter-spacing: -1.5px; }
+.stat .n small { margin-left: 4px; font-size: 14px; letter-spacing: 0; color: var(--muted-fg); }
+.stat .bar { height: 6px; border-radius: 99px; background: var(--track); overflow: hidden; }
+.stat .bar i { display: block; height: 100%; border-radius: 99px; transition: width .3s; }
+@media (min-width: 640px) {
+  .panel { padding: 28px; }
+  .sentence { font-size: 26px; }
+}
+
+/* ---- Calendar: this month, with photo days and mood days -------------------------------------------- */
+.cal-grid { display: grid; gap: 8px; align-items: center; }
+@media (min-width: 1024px) { .cal-grid { grid-template-columns: minmax(0, 1fr) 520px; gap: 56px; } .cal-grid .section-head { margin-bottom: 0; } }
+.cal { padding: 16px; border-radius: var(--radius-2xl); border: 1px solid var(--line); background: var(--bg); }
+.cal .head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.cal .head h3 { font-size: 20px; font-weight: 400; letter-spacing: -0.75px; }
+.cal .head .chip { --tint: var(--accent); }
+.cal .dow, .cal .days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.cal .dow { margin-bottom: 8px; text-align: center; font-size: 11px; font-weight: 700; letter-spacing: .05em; color: var(--faint-fg); }
+.cal .day {
+  position: relative; overflow: hidden; display: grid; place-items: center; align-content: center; gap: 1px; aspect-ratio: 1;
+  border-radius: var(--radius); font-size: 13px; font-weight: 500; color: var(--muted-fg);
+}
+.cal .day.entry-day { border: 1px solid var(--line-strong); background: var(--card); color: var(--fg); font-weight: 700; }
+.cal .day.photo { color: #fff; font-weight: 700; background-size: cover; background-position: center; }
+.cal .day.photo::before { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, .32); }  /* flat overlay, for legibility */
+.cal .day.photo b { position: relative; }
+.cal .day .i { width: 13px; height: 13px; }
+.cal .day.today { outline: 2px solid var(--accent); outline-offset: -2px; }
+.cal .day.future { color: var(--faint-fg); }
+@media (min-width: 640px) {
+  .cal { padding: 24px; }
+  .cal .dow, .cal .days { gap: 7px; }
+  .cal .day { border-radius: var(--radius-xl); font-size: 15px; }
+  .cal .day .i { width: 17px; height: 17px; }
+}
+
+/* ---- Feature cards: an "Android" tag sits beside the title ------------------------------------------ */
+.card h3 .tag { margin: 0 0 0 6px; vertical-align: 1px; font-weight: 500; letter-spacing: 0; }
+.cta-strip .btn svg, .actions .btn svg:first-child { width: 16px; height: 16px; }
+
+/* ---- Text pages ------------------------------------------------------------------------------------- */
+.prose em { font-style: normal; color: var(--faint-fg); }
+.page-head .badge-pill { margin-bottom: 24px; }
+a.tile { color: var(--fg); transition: border-color .15s, background-color .15s; }
+a.tile:hover { border-color: var(--line-strong); background: color-mix(in srgb, var(--secondary) 30%, var(--bg)); }
+.prose > .search { margin-bottom: 0; }
+.prose section h2 + details { margin-top: 4px; }
+
+/* ---- Phones: a tighter timeline, and cards with the icon beside the text so nine of them stay short ---- */
+@media (max-width: 639px) {
+  .stage { margin-top: 40px; }
+  .timeline { grid-template-columns: 52px minmax(0, 1fr); gap: 10px; padding: 14px 12px; }
+  .timeline::before { left: 38px; top: 96px; bottom: 14px; }
+  .badge { height: 66px; }
+  .badge b { font-size: 20px; }
+  .badge small, .badge span { font-size: 9px; }
+  .entry { padding: 14px 14px 12px; }
+  .entry h3 { font-size: 16px; }
+  .entry p { font-size: 14px; min-height: 6.4em; }
+  .cards .card { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 14px; align-content: start; }
+  .cards .card .icon { grid-row: span 2; }
+  .cards .card h3 { margin-top: 0; }
+  .tile { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 14px; align-content: start; padding: 16px; }
+  .tile .icon { grid-row: span 2; margin: 0; }
+  .prose a { overflow-wrap: anywhere; }
+}
